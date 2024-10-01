@@ -122,7 +122,9 @@ class ListOfItems extends StatelessWidget {
                       alignment: Alignment.centerRight,
                       child: IconButton(
                           onPressed: () => {},
-                          icon: const Icon(Icons.favorite_border)),
+                          icon: item.favorite
+                              ? const Icon(Icons.favorite)
+                              : const Icon(Icons.favorite_border)),
                     ),
                   ),
                 ]),

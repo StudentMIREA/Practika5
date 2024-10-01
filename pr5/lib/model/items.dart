@@ -4,6 +4,8 @@ class Items {
   final String image;
   final int cost;
   final String describtion;
+  final bool favorite;
 
-  Items(this.id, this.name, this.image, this.cost, this.describtion);
+  Items(this.id, this.name, this.image, this.cost, this.describtion,
+      this.favorite);
 }
