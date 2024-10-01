@@ -10,12 +10,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int findIndexById(int id) {
-    return ItemsList.indexWhere((item) => item.id == id);
-  }
-
   void AddFavorite(int index) {
-    setState(() {});
+    setState(() {
+      ItemsList.elementAt(index).favorite
+          ? ItemsList.elementAt(index).favorite = false
+          : ItemsList.elementAt(index).favorite = true;
+    });
   }
 
   @override
@@ -121,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                             child: Align(
                               alignment: Alignment.centerRight,
                               child: IconButton(
-                                  onPressed: () => {},
+                                  onPressed: () => {AddFavorite(index)},
                                   icon: ItemsList.elementAt(index).favorite
                                       ? const Icon(Icons.favorite)
                                       : const Icon(Icons.favorite_border)),
