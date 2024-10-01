@@ -2,28 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:pr5/Pages/ItemPage.dart';
 import 'package:pr5/Pages/component/Items.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
-
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
-  int findIndexById(int id) {
-    return ItemsList.indexWhere((item) => item.id == id);
-  }
-
-  void AddFavorite(int index) {
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.amber[200],
       appBar: AppBar(
-        title: const Text('Товары'),
+        title: const Text('Избранное'),
         backgroundColor: Colors.white70,
       ),
       body: GridView.builder(
@@ -122,9 +109,7 @@ class _HomePageState extends State<HomePage> {
                               alignment: Alignment.centerRight,
                               child: IconButton(
                                   onPressed: () => {},
-                                  icon: ItemsList.elementAt(index).favorite
-                                      ? const Icon(Icons.favorite)
-                                      : const Icon(Icons.favorite_border)),
+                                  icon: const Icon(Icons.favorite)),
                             ),
                           ),
                         ]),
