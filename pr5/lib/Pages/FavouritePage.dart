@@ -11,13 +11,17 @@ class FavoritePage extends StatefulWidget {
 }
 
 class _FavoritePageState extends State<FavoritePage> {
-  List<Items> ItemsFavList = <Items>[];
+  List<Items> ItemsFavList = ItemsList.where((item) => item.favorite).toList();
+
+  int findIndexById(int id) {
+    return ItemsList.indexWhere((item) => item.id == id);
+  }
 
   void AddFavorite(int index) {
     setState(() {
-      ItemsList.elementAt(index).favorite
-          ? ItemsList.elementAt(index).favorite = false
-          : ItemsList.elementAt(index).favorite = true;
+      ItemsList.elementAt(findIndexById(index)).favorite
+          ? ItemsList.elementAt(findIndexById(index)).favorite = false
+          : ItemsList.elementAt(findIndexById(index)).favorite = true;
       ItemsFavList = ItemsList.where((item) => item.favorite).toList();
     });
   }
@@ -131,7 +135,11 @@ class _FavoritePageState extends State<FavoritePage> {
                                 child: Align(
                                   alignment: Alignment.centerRight,
                                   child: IconButton(
-                                      onPressed: () => {AddFavorite(index)},
+                                      onPressed: () => {
+                                            AddFavorite(
+                                                ItemsFavList.elementAt(index)
+                                                    .id)
+                                          },
                                       icon: const Icon(Icons.favorite)),
                                 ),
                               ),
