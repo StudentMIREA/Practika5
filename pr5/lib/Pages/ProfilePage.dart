@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class ProfilePage extends StatelessWidget {
   const ProfilePage({super.key});
 
@@ -24,32 +25,60 @@ class ProfilePage extends StatelessWidget {
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.grey, width: 2),
                     image: const DecorationImage(
-                      image: NetworkImage(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNxMnQ2pjj2xCdKwhhogZhYKYvjlkQgOW_8THBTOzJ_L7Zd-51oXh1_YfobgmQBq2JsEc&usqp=CAU'),
+                      image: NetworkImage(),
                       fit: BoxFit.cover,
                     )),
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              'Рябова Екатерина',
-              style: TextStyle(fontSize: 16.0),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              'Телефон: 8(800)555-35-35',
-              style: TextStyle(fontSize: 14.0),
-            ),
-          ),
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: Text(
-              'Почта: mail@bk.ru',
-              style: TextStyle(fontSize: 14.0),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: const Color.fromARGB(255, 255, 246, 218),
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              child: const Padding(
+                padding: EdgeInsets.all(15.0),
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 15.0, bottom: 35.0),
+                      child: Text(
+                        'Рябова Екатерина',
+                        style: TextStyle(fontSize: 16.0),
+                      ),
+                    ),
+                    Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Expanded(
+                            child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Телефон: ${}',
+                            style: TextStyle(fontSize: 14.0),
+                          ),
+                        ))),
+                    Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Expanded(
+                            child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            'Почта: ${}',
+                            style: TextStyle(fontSize: 14.0),
+                          ),
+                        ))),
+                    Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Expanded(
+                          child: Align(
+                              alignment: Alignment.centerRight,
+                              child: Icon(Icons.edit)),
+                        ))
+                  ],
+                ),
+              ),
             ),
           ),
         ],
