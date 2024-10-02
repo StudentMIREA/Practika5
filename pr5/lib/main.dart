@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:pr5/Pages/FavouritePage.dart';
-import 'package:pr5/Pages/ItemPage.dart';
 import 'package:pr5/Pages/ItemsPage.dart';
 
 void main() {
@@ -32,10 +31,35 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  int selectedIndex = 0;
+
+  static const List<Widget> widgetOptions = <Widget>[
+    ItemsPage(),
+    FavoritePage(),
+    FavoritePage()
+  ];
+
+  void onTab(int i) {
+    setState(() {
+      selectedIndex = i;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: HomePage(),
+      body: widgetOptions.elementAt(selectedIndex),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Главная'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.favorite), label: 'Избранное'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Профиль')
+        ],
+        currentIndex: selectedIndex,
+        selectedItemColor: Colors.blue,
+        onTap: onTab,
+      ),
     );
   }
 }

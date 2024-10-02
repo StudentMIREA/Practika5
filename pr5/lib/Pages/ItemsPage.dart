@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:pr5/Pages/ItemPage.dart';
 import 'package:pr5/Pages/component/Items.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class ItemsPage extends StatefulWidget {
+  const ItemsPage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<ItemsPage> createState() => _ItemsPageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _ItemsPageState extends State<ItemsPage> {
   void AddFavorite(int index) {
     setState(() {
       ItemsList.elementAt(index).favorite
