@@ -1,6 +1,6 @@
 import 'package:pr5/model/person.dart';
 
-final List<Person> PersonList = <Person>[
+List<Person> PersonList = <Person>[
   Person(
       1,
       'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNxMnQ2pjj2xCdKwhhogZhYKYvjlkQgOW_8THBTOzJ_L7Zd-51oXh1_YfobgmQBq2JsEc&usqp=CAU',

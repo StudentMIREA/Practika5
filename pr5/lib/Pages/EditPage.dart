@@ -1,26 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:pr5/Pages/component/Person.dart';
 import 'package:pr5/model/person.dart';
 
-class AddPage extends StatefulWidget {
-  const AddPage({super.key, required this.person});
-
-  final List<Person> person;
+class EditPage extends StatefulWidget {
+  const EditPage({super.key});
 
   @override
-  State<AddPage> createState() => _AddPageState();
+  State<EditPage> createState() => _EditPageState();
 }
 
-class _AddPageState extends State<AddPage> {
-  final TextEditingController _addController1 = TextEditingController();
-  final TextEditingController _addController2 = TextEditingController();
-  final TextEditingController _addController3 = TextEditingController();
-  final TextEditingController _addController4 = TextEditingController();
-  String img_link = '';
+class _EditPageState extends State<EditPage> {
+  final TextEditingController imageController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController mailController = TextEditingController();
+  String img_link = PersonList.elementAt(0).image;
 
   void enter_img(String text) {
     setState(() {
       img_link = text;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    imageController.text = PersonList.elementAt(0).image;
+    nameController.text = PersonList.elementAt(0).name;
+    phoneController.text = PersonList.elementAt(0).phone;
+    mailController.text = PersonList.elementAt(0).mail;
+  }
+
+  @override
+  void dispose() {
+    imageController.dispose();
+    nameController.dispose();
+    phoneController.dispose();
+    mailController.dispose();
+    super.dispose();
   }
 
   @override
@@ -36,11 +53,28 @@ class _AddPageState extends State<AddPage> {
           child: Column(
             children: [
               Padding(
+                padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
+                child: Center(
+                  child: Container(
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    height: MediaQuery.of(context).size.width * 0.5,
+                    decoration: BoxDecoration(
+                        color: Colors.amber[100],
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Colors.grey, width: 2),
+                        image: DecorationImage(
+                          image: NetworkImage(img_link),
+                          fit: BoxFit.cover,
+                        )),
+                  ),
+                ),
+              ),
+              Padding(
                 padding: const EdgeInsets.all(5.0),
                 child: TextField(
                   style: const TextStyle(fontSize: 14.0, color: Colors.black),
                   decoration: const InputDecoration(
-                    hintText: 'Название товара',
+                    hintText: 'Картинка',
                     hintStyle:
                         const TextStyle(fontSize: 14.0, color: Colors.grey),
                     enabledBorder: UnderlineInputBorder(
@@ -50,77 +84,28 @@ class _AddPageState extends State<AddPage> {
                         borderSide: BorderSide(
                             color: Color.fromRGBO(255, 160, 0, 1), width: 2.0)),
                   ),
-                  controller: _addController1,
+                  controller: imageController,
+                  onChanged: (text) {
+                    enter_img(text);
+                  },
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(5.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      flex: 2,
-                      child: TextField(
-                        style: const TextStyle(
-                            fontSize: 14.0, color: Colors.black),
-                        decoration: const InputDecoration(
-                          fillColor: const Color.fromARGB(255, 255, 246, 218),
-                          hintText: 'Ссылка на картинку',
-                          hintStyle: const TextStyle(
-                              fontSize: 14.0, color: Colors.grey),
-                          enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromRGBO(255, 160, 0, 1),
-                                  width: 1.0)),
-                          focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Color.fromRGBO(255, 160, 0, 1),
-                                  width: 2.0)),
-                        ),
-                        controller: _addController2,
-                        onChanged: (text) {
-                          enter_img(text);
-                        },
-                      ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Align(
-                        alignment: Alignment.centerRight,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.grey, width: 2),
-                          ),
-                          child: Image.network(
-                            img_link,
-                            width: MediaQuery.of(context).size.width * 0.2,
-                            height: MediaQuery.of(context).size.width * 0.2,
-                            fit: BoxFit.cover,
-                            loadingBuilder: (context, child, loadingProgress) {
-                              if (loadingProgress == null) return child;
-                              return const CircularProgressIndicator();
-                            },
-                            errorBuilder: (context, error, stackTrace) {
-                              return Container(
-                                width: MediaQuery.of(context).size.width * 0.2,
-                                height: MediaQuery.of(context).size.width * 0.2,
-                                decoration: BoxDecoration(
-                                  color: Colors.amber[200],
-                                  border:
-                                      Border.all(color: Colors.grey, width: 1),
-                                ),
-                                child: const Center(
-                                    child: Text(
-                                  'нет картинки',
-                                  softWrap: true,
-                                  textAlign: TextAlign.center,
-                                )),
-                              );
-                            },
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                child: TextField(
+                  style: const TextStyle(fontSize: 14.0, color: Colors.black),
+                  decoration: const InputDecoration(
+                    hintText: 'Имя',
+                    hintStyle:
+                        const TextStyle(fontSize: 14.0, color: Colors.grey),
+                    enabledBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromRGBO(255, 160, 0, 1), width: 1.0)),
+                    focusedBorder: UnderlineInputBorder(
+                        borderSide: BorderSide(
+                            color: Color.fromRGBO(255, 160, 0, 1), width: 2.0)),
+                  ),
+                  controller: nameController,
                 ),
               ),
               Padding(
@@ -129,7 +114,7 @@ class _AddPageState extends State<AddPage> {
                   style: const TextStyle(fontSize: 14.0, color: Colors.black),
                   decoration: const InputDecoration(
                     fillColor: const Color.fromARGB(255, 255, 246, 218),
-                    hintText: 'Цена товара',
+                    hintText: 'Телефон',
                     hintStyle:
                         const TextStyle(fontSize: 14.0, color: Colors.grey),
                     enabledBorder: UnderlineInputBorder(
@@ -139,7 +124,7 @@ class _AddPageState extends State<AddPage> {
                         borderSide: BorderSide(
                             color: Color.fromRGBO(255, 160, 0, 1), width: 2.0)),
                   ),
-                  controller: _addController3,
+                  controller: phoneController,
                 ),
               ),
               Padding(
@@ -148,7 +133,7 @@ class _AddPageState extends State<AddPage> {
                   style: const TextStyle(fontSize: 14.0, color: Colors.black),
                   decoration: const InputDecoration(
                     fillColor: const Color.fromARGB(255, 255, 246, 218),
-                    hintText: 'Описание товара',
+                    hintText: 'Почта',
                     hintStyle:
                         const TextStyle(fontSize: 14.0, color: Colors.grey),
                     enabledBorder: UnderlineInputBorder(
@@ -158,7 +143,7 @@ class _AddPageState extends State<AddPage> {
                         borderSide: BorderSide(
                             color: Color.fromRGBO(255, 160, 0, 1), width: 2.0)),
                   ),
-                  controller: _addController4,
+                  controller: mailController,
                 ),
               ),
               const SizedBox(
@@ -173,18 +158,17 @@ class _AddPageState extends State<AddPage> {
                         borderRadius: BorderRadius.circular(5),
                       )),
                   onPressed: () {
-                    Items newItem = Items(
-                        widget.items.length != 0 ? widget.items.last.id + 1 : 0,
-                        _addController1.text,
-                        _addController2.text,
-                        _addController3.text,
-                        _addController4.text);
-                    if (newItem.name.isNotEmpty &&
-                        newItem.image.isNotEmpty &&
-                        newItem.cost.isNotEmpty &&
-                        newItem.describtion.isNotEmpty &&
-                        int.tryParse(newItem.cost) != null) {
-                      Navigator.pop(context, newItem);
+                    if (imageController.text.isNotEmpty &&
+                        nameController.text.isNotEmpty &&
+                        mailController.text.isNotEmpty &&
+                        phoneController.text.isNotEmpty) {
+                      Person newPerson = Person(
+                          0,
+                          imageController.text,
+                          nameController.text,
+                          mailController.text,
+                          phoneController.text);
+                      Navigator.pop(context, newPerson);
                     }
                   },
                   child: const Text('Сохранить',

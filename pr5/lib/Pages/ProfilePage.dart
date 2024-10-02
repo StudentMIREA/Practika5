@@ -1,8 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:pr5/Pages/EditPage.dart';
+import 'package:pr5/Pages/component/Person.dart';
+import 'package:pr5/model/person.dart';
 
-
-class ProfilePage extends StatelessWidget {
+class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
+
+  @override
+  State<ProfilePage> createState() => _ProfilePageState();
+}
+
+class _ProfilePageState extends State<ProfilePage> {
+  void navToEdit(BuildContext context) async {
+    Person person = await Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => EditPage()),
+    );
+    setState(() {
+      PersonList.remove(0);
+      PersonList.add(person);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,8 +42,8 @@ class ProfilePage extends StatelessWidget {
                     color: Colors.amber[100],
                     shape: BoxShape.circle,
                     border: Border.all(color: Colors.grey, width: 2),
-                    image: const DecorationImage(
-                      image: NetworkImage(),
+                    image: DecorationImage(
+                      image: NetworkImage(PersonList.elementAt(0).image),
                       fit: BoxFit.cover,
                     )),
               ),
@@ -38,43 +56,46 @@ class ProfilePage extends StatelessWidget {
                 color: const Color.fromARGB(255, 255, 246, 218),
                 borderRadius: BorderRadius.circular(15.0),
               ),
-              child: const Padding(
-                padding: EdgeInsets.all(15.0),
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
                 child: Column(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 15.0, bottom: 35.0),
+                      padding: const EdgeInsets.only(top: 15.0, bottom: 35.0),
                       child: Text(
-                        'Рябова Екатерина',
-                        style: TextStyle(fontSize: 16.0),
+                        PersonList.elementAt(0).name,
+                        style: const TextStyle(fontSize: 16.0),
                       ),
                     ),
                     Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Expanded(
                             child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'Телефон: ${}',
-                            style: TextStyle(fontSize: 14.0),
+                            'Телефон: ${PersonList.elementAt(0).phone}',
+                            style: const TextStyle(fontSize: 14.0),
                           ),
                         ))),
                     Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Expanded(
                             child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            'Почта: ${}',
-                            style: TextStyle(fontSize: 14.0),
+                            'Почта: ${PersonList.elementAt(0).mail}',
+                            style: const TextStyle(fontSize: 14.0),
                           ),
                         ))),
                     Padding(
-                        padding: EdgeInsets.all(8.0),
+                        padding: const EdgeInsets.all(8.0),
                         child: Expanded(
                           child: Align(
-                              alignment: Alignment.centerRight,
-                              child: Icon(Icons.edit)),
+                            alignment: Alignment.centerRight,
+                            child: IconButton(
+                                onPressed: () => navToEdit(context),
+                                icon: const Icon(Icons.edit)),
+                          ),
                         ))
                   ],
                 ),
