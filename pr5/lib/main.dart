@@ -50,6 +50,7 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       body: widgetOptions.elementAt(selectedIndex),
       bottomNavigationBar: BottomNavigationBar(
+        backgroundColor: Colors.amber[100],
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Главная'),
           BottomNavigationBarItem(
@@ -57,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Профиль')
         ],
         currentIndex: selectedIndex,
-        selectedItemColor: Colors.blue,
+        selectedItemColor: const Color.fromARGB(255, 201, 127, 0),
         onTap: onTab,
       ),
     );
