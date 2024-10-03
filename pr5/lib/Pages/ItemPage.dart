@@ -1,18 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:pr5/Pages/component/Items.dart';
 import 'package:pr5/model/items.dart';
 
-class ItemPage extends StatelessWidget {
+class ItemPage extends StatefulWidget {
   const ItemPage({super.key, required this.item});
-
   final Items item;
+
+  @override
+  State<ItemPage> createState() => _ItemPageState();
+}
+
+class _ItemPageState extends State<ItemPage> {
+  int findIndexById(int id) {
+    return ItemsList.indexWhere((item) => item.id == id);
+  }
+
+  void AddFavorite(int index) {
+    setState(() {
+      ItemsList.elementAt(findIndexById(index)).favorite
+          ? ItemsList.elementAt(findIndexById(index)).favorite = false
+          : ItemsList.elementAt(findIndexById(index)).favorite = true;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.amber[200],
       appBar: AppBar(
-        title: Text(item.name),
+        title: Text(widget.item.name),
         backgroundColor: const Color.fromARGB(255, 255, 246, 218),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pop(context, widget.item.favorite);
+          },
+        ),
       ),
       body: Container(
         child: Column(
@@ -38,7 +61,7 @@ class ItemPage extends StatelessWidget {
                               border: Border.all(color: Colors.grey, width: 2),
                             ),
                             child: Image.network(
-                              item.image,
+                              widget.item.image,
                               width: MediaQuery.of(context).size.width * 0.65,
                               height: MediaQuery.of(context).size.width * 0.65,
                               fit: BoxFit.cover,
@@ -74,7 +97,7 @@ class ItemPage extends StatelessWidget {
                             style: TextStyle(fontSize: 16),
                           ),
                           Text(
-                            '${item.cost} ₽',
+                            '${widget.item.cost} ₽',
                             style: const TextStyle(
                                 fontSize: 16,
                                 color: Color.fromARGB(255, 6, 196, 9),
@@ -109,7 +132,7 @@ class ItemPage extends StatelessWidget {
                       padding: const EdgeInsets.only(
                           top: 15.0, bottom: 30.0, left: 30.0, right: 30.0),
                       child: Text(
-                        item.describtion,
+                        widget.item.describtion,
                         style: const TextStyle(fontSize: 14),
                         softWrap: true,
                         textAlign: TextAlign.justify,
@@ -120,6 +143,50 @@ class ItemPage extends StatelessWidget {
                 ),
               ),
             ),
+            widget.item.favorite
+                ? Expanded(
+                    child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 30.0),
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          side: const BorderSide(color: Colors.grey, width: 2),
+                        ),
+                        child: const Text(
+                          'Удалить из избранного',
+                          style: TextStyle(fontSize: 15.0, color: Colors.grey),
+                        ),
+                        onPressed: () {
+                          AddFavorite(widget.item.id);
+                        },
+                      ),
+                    ),
+                  ))
+                : Expanded(
+                    child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 30.0),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          foregroundColor: const Color.fromARGB(255, 0, 0, 0),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                              side: const BorderSide(
+                                  width: 2,
+                                  color: Color.fromRGBO(255, 160, 0, 1))),
+                          backgroundColor:
+                              const Color.fromARGB(255, 255, 246, 218),
+                        ),
+                        child: const Text("Добавить в избранное",
+                            style: TextStyle(fontSize: 15)),
+                        onPressed: () {
+                          AddFavorite(widget.item.id);
+                        },
+                      ),
+                    ),
+                  ))
           ],
         ),
       ),

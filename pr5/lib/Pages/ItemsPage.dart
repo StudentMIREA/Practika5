@@ -18,6 +18,18 @@ class _ItemsPageState extends State<ItemsPage> {
     });
   }
 
+  void NavToItem(index) async {
+    bool answ = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ItemPage(item: ItemsList.elementAt(index)),
+      ),
+    );
+    setState(() {
+      ItemsList.elementAt(index).favorite = answ;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,13 +47,7 @@ class _ItemsPageState extends State<ItemsPage> {
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        ItemPage(item: ItemsList.elementAt(index)),
-                  ),
-                );
+                NavToItem(index);
               },
               child: Padding(
                 padding: const EdgeInsets.only(

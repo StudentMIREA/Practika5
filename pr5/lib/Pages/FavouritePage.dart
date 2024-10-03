@@ -26,6 +26,20 @@ class _FavoritePageState extends State<FavoritePage> {
     });
   }
 
+  void NavToItem(index) async {
+    bool answ = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            ItemPage(item: ItemsList.elementAt(findIndexById(index))),
+      ),
+    );
+    setState(() {
+      ItemsList.elementAt(findIndexById(index)).favorite = answ;
+      ItemsFavList = ItemsList.where((item) => item.favorite).toList();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,13 +58,7 @@ class _FavoritePageState extends State<FavoritePage> {
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            ItemPage(item: ItemsFavList.elementAt(index)),
-                      ),
-                    );
+                    NavToItem(ItemsFavList.elementAt(index).id);
                   },
                   child: Padding(
                     padding: const EdgeInsets.only(

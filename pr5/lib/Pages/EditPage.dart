@@ -10,10 +10,14 @@ class EditPage extends StatefulWidget {
 }
 
 class _EditPageState extends State<EditPage> {
-  final TextEditingController imageController = TextEditingController();
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController phoneController = TextEditingController();
-  final TextEditingController mailController = TextEditingController();
+  final TextEditingController imageController =
+      TextEditingController(text: PersonList.elementAt(0).image);
+  final TextEditingController nameController =
+      TextEditingController(text: PersonList.elementAt(0).name);
+  final TextEditingController phoneController =
+      TextEditingController(text: PersonList.elementAt(0).phone);
+  final TextEditingController mailController =
+      TextEditingController(text: PersonList.elementAt(0).mail);
   String img_link = PersonList.elementAt(0).image;
 
   void enter_img(String text) {
@@ -23,29 +27,11 @@ class _EditPageState extends State<EditPage> {
   }
 
   @override
-  void initState() {
-    super.initState();
-    imageController.text = PersonList.elementAt(0).image;
-    nameController.text = PersonList.elementAt(0).name;
-    phoneController.text = PersonList.elementAt(0).phone;
-    mailController.text = PersonList.elementAt(0).mail;
-  }
-
-  @override
-  void dispose() {
-    imageController.dispose();
-    nameController.dispose();
-    phoneController.dispose();
-    mailController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: const Color.fromARGB(255, 255, 246, 218),
         appBar: AppBar(
-          title: const Text('Товары'),
+          title: const Text('Профиль'),
           backgroundColor: Colors.amber[200],
         ),
         body: Padding(
@@ -166,8 +152,8 @@ class _EditPageState extends State<EditPage> {
                           0,
                           imageController.text,
                           nameController.text,
-                          mailController.text,
-                          phoneController.text);
+                          phoneController.text,
+                          mailController.text);
                       Navigator.pop(context, newPerson);
                     }
                   },

@@ -17,7 +17,7 @@ class _ProfilePageState extends State<ProfilePage> {
       MaterialPageRoute(builder: (context) => EditPage()),
     );
     setState(() {
-      PersonList.remove(0);
+      PersonList.removeAt(0);
       PersonList.add(person);
     });
   }
